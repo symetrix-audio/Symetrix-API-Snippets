@@ -1,0 +1,407 @@
+{
+    "Timer": {
+        "prefix": "Timer",
+        "body": [
+          "function TimerClick()",
+          "",
+          "end",
+          "",
+          "MyTimer = Timer.New()",
+          "MyTimer.EventHandler = TimerClick",
+          "MyTimer:Start(.5)"
+        ],
+        "description": "Timer"
+    },
+    
+      "HTTP": {
+        "prefix": "HTTP Framework",
+        "body": [
+          "function Response(Table, ReturnCode, Data, Error, Headers)",
+          "    ",
+          "    if debug then ",
+          "        print(Data)",
+          "        print(Table)",
+          "        print(ReturnCode)",
+          "        print(Error)",
+          "        print(Headers)",
+          "        NamedControl.SetText(\"Return\", Data)",
+          "    end",
+          "     ",
+          "    if (200 == ReturnCode or ReturnCode == 201) then",
+          "        NamedControl.SetPosition(\"Connected\", 1)",
+          "    else",
+          "        NamedControl.SetPosition(\"Connected\", 0) ",
+          "    end",
+          "end",
+          "    ",
+          "function HTTP()",
+          "    ",
+          "    Url = (HttpClient.CreateUrl({",
+          "           Host = \"\",",
+          "           Path = \"\"}))",
+          "     ",
+          "    HttpClient.Upload({",
+          "        Url = Url,",
+          "        Headers =  {\"\"},",
+          "        Data = \"\",",
+          "        Method = \"POST\",",
+          "        EventHandler = Response})",
+          "",
+          "    HttpClient.Download {",
+          "        Url = Url,",
+          "        Headers = { \"\" },",
+          "        EventHandler = Response}",
+          "end"
+        ],
+        "description": "HTTP Framework"
+    },
+    
+      "UDP": {
+        "prefix": "UDP Framework",
+        "body": [
+          "function HandleData(socket, packet)",
+          "",
+          "    --Info about receiving socket and packet",
+          "    print(\"Socket ID: \" .. socket.ID)",
+          "    receivedIP, receivedPort = socket:GetSockName()",
+          "    print(\"Socket IP: \" .. receivedIP)",
+          "    print(\"Socket Port: \" .. receivedPort)",
+          "    print(\"Packet IP: \" .. packet.Address)",
+          "    print(\"Packet Port: \" .. packet.Port)",
+          "    --Do stuff with the received packet",
+          "    print(\"Packet Data: \\r\" .. packet.Data) ",
+          "end",
+          "    ",
+          "MyUdp = UdpSocket.New()",
+          "MyUdp:Open(Device.LocalUnit.ControlIP, 0)",
+          "MyUdp.Data = HandleData",
+          "MyUdp:Send(\"0.0.0.0\", 48630, \"CS 1 0\\r\\n\")"
+        ],
+        "description": "UDP Framework"
+    },
+    
+      "TCP": {
+        "prefix": "TCP Framework",
+        "body": [
+          "sock = TcpSocket.New()",
+          "sock.ReadTimeout = 0",
+          "sock.WriteTimeout = 0",
+          "sock.ReconnectTimeout = 0",
+          "",
+          "sock.Connected = function(TcpSocket)",
+          "",
+          "    --handle the new Connection",
+          "    print(\"socket connected\\r\")",
+          "end",
+          "",
+          "sock.Reconnect = function(TcpSocket)",
+          "",
+          "    --handle the Reconnection attempt",
+          "    print(\"socket reconnecting...\\r\")",
+          "end",
+          "",
+          "sock.Data = function(TcpSocket, data)",
+          "",
+          "      --handle the data",
+          "    rxLine = sock:Read(10000)",
+          "        if (nil ~= rxLine) then",
+          "            print(\"Got:\\r\" .. rxLine)",
+          "        end",
+          "end",
+          "",
+          "sock.Closed = function(TcpSocket)",
+          "",
+          "    --handle the socket closing",
+          "    print(\"socket closed by remote\\r\")",
+          "end",
+          "",
+          "sock.Error = function(TcpSocket, error)",
+          "",
+          "    --handle the error",
+          "    print(string.format(\"Error: '%s'\\r\", error))",
+          "end",
+          "",
+          "sock.Timeout = function(TcpSocket, error)",
+          "",
+          "    --handle the Timeout",
+          "    print(\"socket closed due to timeout\\r\")",
+          "end",
+          "",
+          "sock:Connect(remoteControlIp, remoteControlPort)"
+        ],
+        "description": "TCP Framework"
+
+    },
+    "HttpClient.Download": {
+        "prefix": "HttpClient.Download",
+        "body": [
+          "HttpClient.Download {",
+          "    Url = \"string\",",
+          "    Headers = {table},",
+          "    User = \"string\",",
+          "    Password = \"string\",",
+          "    Timeout = \"number\",",
+          "    EventHandler = \"function\"}"
+        ],
+        "description": "HttpClient.Download"
+
+    },
+    "HttpClient.Upload": {
+        "prefix": "HttpClient.Upload",
+        "body": [
+          "HttpClient.Upload {",
+          "        Url = \"string\",",
+          "        Headers = {\"table\"},",
+          "        User = \"string\",",
+          "        Password = \"string\",",
+          "        Data = \"string\",",
+          "        Method = \"string\",",
+          "        Timeout = \"number\",",
+          "        EventHandler = \"function\"}"
+        ],
+        "description": "HttpClient.Upload"
+    },
+
+    "HttpClient.CreateUrl": {
+        "prefix": "HttpClient.CreateUrl",
+        "body": [
+          "HttpClient.CreateUrl({",
+          "        Host = \"string\",",
+          "        Port = \"number\",",
+          "        Path = \"string\",",
+          "        Query = {\"table\"},",
+          "        Enocde = \"bool\"})"
+        ],
+        "description": "HttpClient.CreateUrl"
+    },
+
+    "HttpClient.EncodeParams": {
+        "prefix": "HttpClient.EncodeParams",
+        "body": [
+          "HttpClient.EncodeParams({",
+          "        key = \"value\", [\"valid key\"] = \"valid value\"})"
+        ],
+        "description": "HttpClient.EncodeParams"
+    },
+
+    "HttpClient.EncodeString": {
+        "prefix": "HttpClient.EncodeString",
+        "body": [
+          "HttpClient.EncodeString(\"string\", \"bool\")"
+        ],
+        "description": "HttpClient.EncodeString"
+    },
+
+    "HttpClient.DecodeString": {
+        "prefix": "HttpClient.DecodeString",
+        "body": [
+          "HttpClient.DecodeString(\"string\")"
+        ],
+        "description": "HttpClient.DecodeString"
+    },
+
+    "TcpSocket.New()": {
+        "prefix": "TcpSocket.New()",
+        "body": [
+          "MyTcp = TcpSocket.New()"
+        ],
+        "description": "TcpSocket.New()"
+    },
+
+    "TcpSocket.IsConnected": {
+        "prefix": "TcpSocket.IsConnected",
+        "body": [
+          "TcpSocketName.IsConnected"
+        ],
+        "description": "TcpSocket.IsConnected"
+    },
+
+    "TcpSocket.Connect": {
+        "prefix": "TcpSocket.Connect",
+        "body": [
+          "TcpSocketName:Connect(ip, port)"
+        ],
+        "description": "TcpSocket.Connect"
+    },
+
+    "TcpSocket.Disconnect": {
+        "prefix": "TcpSocket.Disconnect",
+        "body": [
+          "TcpSocketName:Disconnect()"
+        ],
+        "description": "TcpSocket.Disconnect"
+    },
+
+    "TcpSocket.Write": {
+        "prefix": "TcpSocket.Write",
+        "body": [
+          "TcpSocketName:Write(data)"
+        ],
+        "description": "TcpSocket.Write"
+    },
+
+    "TcpSocket.Read": {
+        "prefix": "TcpSocket.Read",
+        "body": [
+          "TcpSocketName:Read(length)"
+        ],
+        "description": "TcpSocket.Read"
+    },
+
+    "TcpSocket.ReadLine": {
+        "prefix": "TcpSocket.ReadLine",
+        "body": [
+          "TcpSocketName:ReadLine(EOL, [delimiter])"
+        ],
+        "description": "TcpSocket.ReadLine"
+    },
+
+    "TcpSocket.Search": {
+        "prefix": "TcpSocket.Search",
+        "body": [
+          "TcpSocketName:Search(pattern, [start])"
+        ],
+        "description": "TcpSocket.Search"
+    },
+
+    "UdpSocket.New": {
+        "prefix": "UdpSocket.New",
+        "body": [
+          "MyUdp = UdpSocket.New()"
+        ],
+        "description": "UdpSocket.New"
+    },
+
+    "UdpSocket.Open": {
+        "prefix": "UdpSocket.Open",
+        "body": [
+          "UdpSocketName:Open(ip, port)"
+        ],
+        "description": "UdpSocket.Open"
+    },
+
+    "UdpSocket.Close": {
+        "prefix": "UdpSocket.Close",
+        "body": [
+          "UdpSocketName:Close()"
+        ],
+        "description": "UdpSocket.Close"
+    },
+
+    "UdpSocket.Send": {
+        "prefix": "UdpSocket.Send",
+        "body": [
+          "UdpSocketName:Send(ip, port, data)"
+        ],
+        "description": "UdpSocket.Send"
+    },
+
+    "UdpSocket.GetSockName": {
+        "prefix": "UdpSocket.GetSockName",
+        "body": [
+          "UdpSocketName:GetSockName()"
+        ],
+        "description": "UdpSocket.GetSockName"
+    },
+
+    "json.encode": {
+        "prefix": "json.encode",
+        "body": [
+          "json.encode(object)"
+        ],
+        "description": "json.encode"
+    },
+
+    "json.decode": {
+        "prefix": "json.decode",
+        "body": [
+          "json.decode(jsonString, startPos)"
+        ],
+        "description": "json.decode"
+    },
+
+    "json.null": {
+        "prefix": "json.null",
+        "body": [
+          "json.null()"
+        ],
+        "description": "json.null"
+    },
+
+    "NamedControl.GetText": {
+        "prefix": "NamedControl.GetText",
+        "body": [
+          "NamedControl.GetText(\"name\")"
+        ],
+        "description": "NamedControl.GetText"
+    },
+
+    "NamedControl.SetText": {
+        "prefix": "NamedControl.SetText",
+        "body": [
+          "NamedControl.SetText(\"name\", value)"
+        ],
+        "description": "NamedControl.SetText"
+    },
+
+    "NamedControl.GetValue": {
+        "prefix": "NamedControl.GetValue",
+        "body": [
+          "NamedControl.GetValue(\"name\")"
+        ],
+        "description": "NamedControl.GetValue"
+    },
+
+    "NamedControl.SetValue": {
+        "prefix": "NamedControl.SetValue",
+        "body": [
+          "NamedControl.SetValue(\"name\", value)"
+        ],
+        "description": "NamedControl.SetValue"
+    },
+
+    "NamedControl.GetPosition": {
+        "prefix": "NamedControl.GetPosition",
+        "body": [
+          "NamedControl.GetPosition(\"name\")"
+        ],
+        "description": "NamedControl.GetPosition"
+    },
+
+    "NamedControl.SetPosition": {
+        "prefix": "NamedControl.SetPosition",
+        "body": [
+          "NamedControl.SetPosition(\"name\", position)"
+        ],
+        "description": "NamedControl.SetPosition"
+    },
+
+    "Controls.Inputs.Value": {
+        "prefix": "Controls.Inputs.Value",
+        "body": [
+          "Controls.Inputs[input].Value"
+        ],
+        "description": "Controls.Inputs.Value"
+    },
+
+    "Controls.Inputs.EventHandler": {
+        "prefix": "Controls.Inputs.EventHandler",
+        "body": [
+          "Controls.Inputs[input].EventHandler"
+        ],
+        "description": "Controls.Inputs.EventHandler"
+    },
+
+    "Controls.Outputs.Value": {
+        "prefix": "Controls.Outputs.Value",
+        "body": [
+          "Controls.Outputs[output].Value"
+        ],
+        "description": "Controls.Outputs.Value"
+    },
+
+
+
+
+
+}

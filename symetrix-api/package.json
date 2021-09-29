@@ -1,0 +1,26 @@
+{
+    "name": "symetrix-api",
+    "displayName": "Symetrix API Snippets",
+    "publisher": "Symetrix",
+    "icon": "VetricalLogo_128x128.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/qklarer/qklarer"
+    },
+    "description": "",
+    "version": "1.0.8",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "lua",
+                "path": "./snippets/snippets.code-snippets"
+            }
+        ]
+    }
+}
