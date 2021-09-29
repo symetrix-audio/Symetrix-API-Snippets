@@ -1,0 +1,9 @@
+jo2ug7dbjnxaizksek62lyaxkznpnd75opg7tin4nsl4uyqsf2aa - DNU
+
+vsce login Symetrix
+
+43zf3a5twuxsghlov7ekj5j6eya7oenqhpklilmqvov7uuwwqr6a
+
+Publish
+
+https://marketplace.visualstudio.com/manage/publishers/symetrix

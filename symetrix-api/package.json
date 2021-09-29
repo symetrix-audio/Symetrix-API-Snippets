@@ -5,10 +5,10 @@
     "icon": "VetricalLogo_128x128.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/qklarer/qklarer"
+        "url": "https://github.com/qklarer/Symetrix-API-Snippets"
     },
     "description": "",
-    "version": "1.0.8",
+    "version": "1.1.2",
     "engines": {
         "vscode": "^1.60.0"
     },
