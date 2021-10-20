@@ -64,7 +64,7 @@ function Response(Table, ReturnCode, Data, Error, Headers)
    end
 end
 
-function HTTP()
+function Http_Request()
 
    Url = (HttpClient.CreateUrl({
       Host = "",
@@ -79,21 +79,9 @@ function HTTP()
 
    HttpClient.Download {
       Url = Url,
-      Headers = { "" },
+      Headers = {""},
       EventHandler = Response}
 end
-```
-
-## Timer
-
-```lua
-function TimerClick()
-
-end
-
-MyTimer = Timer.New()
-MyTimer.EventHandler = TimerClick
-MyTimer:Start(.5)
 ```
 
 ## TCP
@@ -223,6 +211,18 @@ MyUdp = UdpSocket.New()
 MyUdp:Open(Device.LocalUnit.ControlIP, 0)
 MyUdp.Data = HandleData
 MyUdp:Send("0.0.0.0", 48630, "CS 1 0\r\n")
+```
+
+## Timer
+
+```lua
+function TimerClick()
+
+end
+
+MyTimer = Timer.New()
+MyTimer.EventHandler = TimerClick
+MyTimer:Start(.5)
 ```
 
 ## JSON

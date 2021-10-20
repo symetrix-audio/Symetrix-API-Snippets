@@ -416,7 +416,7 @@
   "prefix": "HttpClient.Download",
   "body": [
     "HttpClient.Download {",
-    "    Url = \"string\",$1",
+    "    Url = \"string$1\",",
     "    Headers = {table},",
     "    User = \"string\",",
     "    Password = \"string\",",
@@ -430,7 +430,7 @@
   "prefix": "HttpClient.Upload",
   "body": [
     "HttpClient.Upload {",
-    "        Url = \"string\",$1",
+    "        Url = \"string$1\",",
     "        Headers = {\"table\"},",
     "        User = \"string\",",
     "        Password = \"string\",",
@@ -446,7 +446,7 @@
   "prefix": "HttpClient.CreateUrl",
   "body": [
     "HttpClient.CreateUrl({",
-    "        Host = \"string\",$1",
+    "        Host = \"string$1\",",
     "        Port = \"number\",",
     "        Path = \"string\",",
     "        Query = {\"table\"},",
@@ -459,7 +459,7 @@
   "prefix": "HttpClient.EncodeParams",
   "body": [
     "HttpClient.EncodeParams({",
-    "        key = \"value\", [\"valid key\"] = \"valid value\"})"
+    "        key = \"value$1\", [\"valid key\"] = \"valid value\"})"
   ],
   "description": "HttpClient.EncodeParams"
 },
@@ -467,7 +467,7 @@
 "HttpClient.EncodeString": {
   "prefix": "HttpClient.EncodeString",
   "body": [
-    "HttpClient.EncodeString(\"string\", \"bool\")"
+    "HttpClient.EncodeString(\"string$1\", \"bool\")"
   ],
   "description": "HttpClient.EncodeString"
 },
@@ -475,7 +475,7 @@
 "HttpClient.DecodeString": {
   "prefix": "HttpClient.DecodeString",
   "body": [
-    "HttpClient.DecodeString(\"string\")"
+    "HttpClient.DecodeString(\"string$1\")"
   ],
   "description": "HttpClient.DecodeString"
 },
@@ -494,7 +494,7 @@
     "    end",
     "end",
     "    ",
-    "function HTTP()",
+    "function Http_Request()",
     "    ",
     "    Url = (HttpClient.CreateUrl({",
     "           Host = \"\",",
