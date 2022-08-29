@@ -1,0 +1,26 @@
+name: Symetrix API Snipets manual publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Enter a version number with the following format: X.X.X"
+        required: true
+        
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: "npm install -g vsce"
+      run: npm install -g vsce
+
+    - name: "Publish exstension"
+      run: cd symetrix-api && vsce publish --pat "${{ secrets.AZURE_MARKET_PLACE_PAT }}" "${{ github.event.inputs.version }}"
+      
