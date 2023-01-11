@@ -34,7 +34,7 @@ HttpClient.CreateUrl({
    Port = "number",
    Path = "string",
    Query = {"table"},
-   Encode = "bool"})
+   Enocde = "bool"})
 ```
 
 ```lua
@@ -213,140 +213,6 @@ MyUdp.Data = HandleData
 MyUdp:Send("0.0.0.0", 48630, "CS 1 0\r\n")
 ```
 
-## SSH
-
-```lua
-Ssh.New()
-```
-
-```lua
-SshName.EventHandler(Ssh, event, error)
-```
-
-```lua
-SshName.ReconnectTimeout
-```
-
-```lua
-SshName.IsConnected
-```
-
-```lua
-SshName.IsInteractive
-```
-
-```lua
-SshName.BufferLength
-```
-
-```lua
-SshName.PublicKey
-```
-
-```lua
-SshName.PrivateKey
-```
-
-```lua
-SshName.PrivateKeyPassword
-```
-
-```lua
-SshName:Connect(ip, port, username, password)
-```
-
-```lua
-SshName:Disconnect()
-```
-
-```lua
-SshName:Write(data)
-```
-
-```lua
-SshName:Read(length)
-```
-
-```lua
-SshName:ReadLine(EOL, [delimiter])
-```
-
-```lua
-SshName:Search(pattern, [start])
-```
-
-```lua
-SshName.LoginFailed(Ssh, error)
-```
-
-```lua
-SshName.Connected(Ssh)
-```
-
-```lua
-SshName.Reconnect(Ssh)
-```
-
-```lua
-SshName.Data(Ssh, data)
-```
-
-```lua
-SshName.Closed(Ssh)
-```
-
-```lua
-SshName.Error(Ssh, error)
-```
-
-```lua
-SshName.Timeout(Ssh, error)
-```
-
-## SSH Framework
-
-```lua
-SSH = Ssh.New()
-SSH.ReadTimeout = 15
-SSH.WriteTimeout = 15
-SSH.ReconnectTimeout = 10
-
-function ParseResponse() -- function that reads the SSH TCP socket
-
-    rx = SSH:Read(SSH.BufferLength) -- assign the contents of the buffer to a variable
-    print(rx)
-end
-
---#region SSH Callback
-SSH.Connected = function() -- function called when the TCP socket is connected
-    print("Socket connected")
-end
-
-SSH.Reconnect = function() -- function called when the TCP socket is reconnected
-    print("Socket reconnecting...")
-end
-
-SSH.Closed = function() -- function called when the TCP socket is closed
-    print("Socket closed")
-end
-
-SSH.Error = function() -- function called when the TCP socket has an error
-    print("Socket error")
-end
-
-SSH.Timeout = function() -- function called when the TCP socket times out
-    print("Socket timeout")
-end
-
-SSH.LoginFailed = function() -- function called when SSH login fails
-    print("SSH login failed")
-end
-
-SSH.Data = ParseResponse -- ParseResponse is called when the SSH object has data
-
-SSH:Write(" " .. "\r\n")
-```
-
 ## Timer
 
 ```lua
@@ -356,7 +222,7 @@ end
 
 MyTimer = Timer.New()
 MyTimer.EventHandler = TimerClick
-MyTimer:Start(.25)
+MyTimer:Start(.5)
 ```
 
 ## JSON
