@@ -518,7 +518,7 @@
 "SSH": {
   "prefix": "SSH Framework",
   "body": [
-    "   SSH = Ssh.New()",
+    "SSH = Ssh.New()",
     "SSH.ReadTimeout = 15",
     "SSH.WriteTimeout = 15",
     "SSH.ReconnectTimeout = 10",

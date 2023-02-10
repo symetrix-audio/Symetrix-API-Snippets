@@ -2,13 +2,9 @@
 
 All notable changes to the "symetrix-api" extension will be documented in this file.
 
-## [1.2.3]
+## [1.2.0]
 
-- Added HttpClient API.
-
-## [1.2.1]
-
-- Added Device API.
+- Added SSH.
 
 ## [1.1.3]
 
