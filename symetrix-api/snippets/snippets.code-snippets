@@ -1,517 +1,749 @@
 {
-    "Timer": {
-        "prefix": "Timer",
-        "body": [
-          "function TimerClick()",
-          "$1",
-          "end",
-          "",
-          "MyTimer = Timer.New()",
-          "MyTimer.EventHandler = TimerClick",
-          "MyTimer:Start(.5)"
-        ],
-        "description": "Timer"
-    },
-    
-    
-      "UDP": {
-        "prefix": "UDP Framework",
-        "body": [
-          "function HandleData(socket, packet)",
-          "    ",
-          "    --Info about receiving socket and packet",
-          "    print(\"Socket ID: \" .. socket.ID)",
-          "    receivedIP, receivedPort = socket:GetSockName()",
-          "    print(\"Socket IP: \" .. receivedIP)",
-          "    print(\"Socket Port: \" .. receivedPort)",
-          "    print(\"Packet IP: \" .. packet.Address)",
-          "    print(\"Packet Port: \" .. packet.Port)",
-          "    --Do stuff with the received packet",
-          "    print(\"Packet Data: \\r\" .. packet.Data) ",
-          "end",
-          "    ",
-          "MyUdp = UdpSocket.New()",
-          "MyUdp:Open(Device.LocalUnit.ControlIP, 0)",
-          "MyUdp.Data = HandleData",
-          "MyUdp:Send(\"0.0.0.0\", 48630, \"CS 1 0\\r\\n\")"
-        ],
-        "description": "UDP Framework"
-    },
-    
-      "TCP": {
-        "prefix": "TCP Framework",
-        "body": [
-          "sock = TcpSocket.New()",
-          "sock.ReadTimeout = 0",
-          "sock.WriteTimeout = 0",
-          "sock.ReconnectTimeout = 0",
-          "",
-          "sock.Connected = function(TcpSocket)",
-          "",
-          "    --handle the new Connection",
-          "    print(\"socket connected\\r\")",
-          "end",
-          "",
-          "sock.Reconnect = function(TcpSocket)",
-          "",
-          "    --handle the Reconnection attempt",
-          "    print(\"socket reconnecting...\\r\")",
-          "end",
-          "",
-          "sock.Data = function(TcpSocket, data)",
-          "",
-          "      --handle the data",
-          "    rxLine = sock:Read(10000)",
-          "        if (nil ~= rxLine) then",
-          "            print(\"Got:\\r\" .. rxLine)",
-          "        end",
-          "end",
-          "",
-          "sock.Closed = function(TcpSocket)",
-          "",
-          "    --handle the socket closing",
-          "    print(\"socket closed by remote\\r\")",
-          "end",
-          "",
-          "sock.Error = function(TcpSocket, error)",
-          "",
-          "    --handle the error",
-          "    print(string.format(\"Error: '%s'\\r\", error))",
-          "end",
-          "",
-          "sock.Timeout = function(TcpSocket, error)",
-          "",
-          "    --handle the Timeout",
-          "    print(\"socket closed due to timeout\\r\")",
-          "end",
-          "",
-          "sock:Connect(remoteControlIp, remoteControlPort)"
-        ],
-        "description": "TCP Framework"
-
-    },
-   
-
-    "TcpSocket.New()": {
-        "prefix": "TcpSocket.New()",
-        "body": [
-          "MyTcp$1 = TcpSocket.New()"
-        ],
-        "description": "TcpSocket.New()"
-    },
-
-    "TcpSocket.IsConnected": {
-        "prefix": "TcpSocket.IsConnected",
-        "body": [
-          "TcpSocketName.IsConnected"
-        ],
-        "description": "TcpSocket.IsConnected"
-    },
-
-    "TcpSocket.Connect": {
-        "prefix": "TcpSocket.Connect",
-        "body": [
-          "TcpSocketName:Connect(ip$1, port)"
-        ],
-        "description": "TcpSocket.Connect"
-    },
-
-    "TcpSocket.Disconnect": {
-        "prefix": "TcpSocket.Disconnect",
-        "body": [
-          "TcpSocketName$1:Disconnect()"
-        ],
-        "description": "TcpSocket.Disconnect"
-    },
-
-    "TcpSocket.Write": {
-        "prefix": "TcpSocket.Write",
-        "body": [
-          "TcpSocketName:Write(data$1)"
-        ],
-        "description": "TcpSocket.Write"
-    },
-
-    "TcpSocket.Read": {
-        "prefix": "TcpSocket.Read",
-        "body": [
-          "TcpSocketName:Read(length$1)"
-        ],
-        "description": "TcpSocket.Read"
-    },
-
-    "TcpSocket.ReadLine": {
-        "prefix": "TcpSocket.ReadLine",
-        "body": [
-          "TcpSocketName:ReadLine(EOL$1, [delimiter])"
-        ],
-        "description": "TcpSocket.ReadLine"
-    },
-
-    "TcpSocket.Search": {
-        "prefix": "TcpSocket.Search",
-        "body": [
-          "TcpSocketName:Search(pattern$1, [start])"
-        ],
-        "description": "TcpSocket.Search"
-    },
-
-    "UdpSocket.New": {
-        "prefix": "UdpSocket.New",
-        "body": [
-          "MyUdp$1 = UdpSocket.New()"
-        ],
-        "description": "UdpSocket.New"
-    },
-
-    "UdpSocket.Open": {
-        "prefix": "UdpSocket.Open",
-        "body": [
-          "UdpSocketName:Open(ip$1, port)"
-        ],
-        "description": "UdpSocket.Open"
-    },
-
-    "UdpSocket.Close": {
-        "prefix": "UdpSocket.Close",
-        "body": [
-          "UdpSocketName$1:Close()"
-        ],
-        "description": "UdpSocket.Close"
-    },
-
-    "UdpSocket.Send": {
-        "prefix": "UdpSocket.Send",
-        "body": [
-          "UdpSocketName:Send(ip$1, port, data)"
-        ],
-        "description": "UdpSocket.Send"
-    },
-
-    "UdpSocket.GetSockName": {
-        "prefix": "UdpSocket.GetSockName",
-        "body": [
-          "UdpSocketName$1:GetSockName()"
-        ],
-        "description": "UdpSocket.GetSockName"
-    },
-
-    "json.encode": {
-        "prefix": "json.encode",
-        "body": [
-          "json.encode(object$1)"
-        ],
-        "description": "json.encode"
-    },
-
-    "json.decode": {
-        "prefix": "json.decode",
-        "body": [
-          "json.decode(jsonString$1, startPos)"
-        ],
-        "description": "json.decode"
-    },
-
-    "json.null": {
-        "prefix": "json.null",
-        "body": [
-          "json.null()"
-        ],
-        "description": "json.null"
-    },
-
-    "NamedControl.GetText": {
-        "prefix": "NamedControl.GetText",
-        "body": [
-          "NamedControl.GetText(\"name$1\")"
-        ],
-        "description": "NamedControl.GetText"
-    },
-
-    "NamedControl.SetText": {
-        "prefix": "NamedControl.SetText",
-        "body": [
-          "NamedControl.SetText(\"name$1\", value)"
-        ],
-        "description": "NamedControl.SetText"
-    },
-
-    "NamedControl.GetValue": {
-        "prefix": "NamedControl.GetValue",
-        "body": [
-          "NamedControl.GetValue(\"name$1\")"
-        ],
-        "description": "NamedControl.GetValue"
-    },
-
-    "NamedControl.SetValue": {
-        "prefix": "NamedControl.SetValue",
-        "body": [
-          "NamedControl.SetValue(\"name$1\", value)"
-        ],
-        "description": "NamedControl.SetValue"
-    },
-
-    "NamedControl.GetPosition": {
-        "prefix": "NamedControl.GetPosition",
-        "body": [
-          "NamedControl.GetPosition(\"name$1\")"
-        ],
-        "description": "NamedControl.GetPosition"
-    },
-
-    "NamedControl.SetPosition": {
-        "prefix": "NamedControl.SetPosition",
-        "body": [
-          "NamedControl.SetPosition(\"name$1\", position)"
-        ],
-        "description": "NamedControl.SetPosition"
-    },
-
-    "Controls.Inputs.Value": {
-        "prefix": "Controls.Inputs.Value",
-        "body": [
-          "Controls.Inputs[input$1].Value"
-        ],
-        "description": "Controls.Inputs.Value"
-    },
-
-    "Controls.Inputs.EventHandler": {
-        "prefix": "Controls.Inputs.EventHandler",
-        "body": [
-          "Controls.Inputs[input$1].EventHandler"
-        ],
-        "description": "Controls.Inputs.EventHandler"
-    },
-
-    "Controls.Outputs.Value": {
-        "prefix": "Controls.Outputs.Value",
-        "body": [
-          "Controls.Outputs[output$1].Value"
-        ],
-        "description": "Controls.Outputs.Value"
-    },
-
-    "Device.Offline": {
-      "prefix": "Device.Offline",
+  "Timer": {
+      "prefix": "Timer",
       "body": [
-        "Device.Offline"
+        "function TimerClick()",
+        "$1",
+        "end",
+        "",
+        "MyTimer = Timer.New()",
+        "MyTimer.EventHandler = TimerClick",
+        "MyTimer:Start(.25)"
       ],
-      "description": "Device.Offline"
+      "description": "Timer"
+  },
+  
+  
+    "UDP": {
+      "prefix": "UDP Framework",
+      "body": [
+        "function HandleData(socket, packet)",
+        "    ",
+        "    --Info about receiving socket and packet",
+        "    print(\"Socket ID: \" .. socket.ID)",
+        "    receivedIP, receivedPort = socket:GetSockName()",
+        "    print(\"Socket IP: \" .. receivedIP)",
+        "    print(\"Socket Port: \" .. receivedPort)",
+        "    print(\"Packet IP: \" .. packet.Address)",
+        "    print(\"Packet Port: \" .. packet.Port)",
+        "    --Do stuff with the received packet",
+        "    print(\"Packet Data: \\r\" .. packet.Data) ",
+        "end",
+        "    ",
+        "MyUdp = UdpSocket.New()",
+        "MyUdp:Open(Device.LocalUnit.ControlIP, 0)",
+        "MyUdp.Data = HandleData",
+        "MyUdp:Send(\"0.0.0.0\", 48630, \"CS 1 0\\r\\n\")"
+      ],
+      "description": "UDP Framework"
+  },
+  
+    "TCP": {
+      "prefix": "TCP Framework",
+      "body": [
+        "sock = TcpSocket.New()",
+        "sock.ReadTimeout = 0",
+        "sock.WriteTimeout = 0",
+        "sock.ReconnectTimeout = 0",
+        "",
+        "sock.Connected = function(TcpSocket)",
+        "",
+        "    --handle the new Connection",
+        "    print(\"socket connected\\r\")",
+        "end",
+        "",
+        "sock.Reconnect = function(TcpSocket)",
+        "",
+        "    --handle the Reconnection attempt",
+        "    print(\"socket reconnecting...\\r\")",
+        "end",
+        "",
+        "sock.Data = function(TcpSocket, data)",
+        "",
+        "      --handle the data",
+        "    rxLine = sock:Read(10000)",
+        "        if (nil ~= rxLine) then",
+        "            print(\"Got:\\r\" .. rxLine)",
+        "        end",
+        "end",
+        "",
+        "sock.Closed = function(TcpSocket)",
+        "",
+        "    --handle the socket closing",
+        "    print(\"socket closed by remote\\r\")",
+        "end",
+        "",
+        "sock.Error = function(TcpSocket, error)",
+        "",
+        "    --handle the error",
+        "    print(string.format(\"Error: '%s'\\r\", error))",
+        "end",
+        "",
+        "sock.Timeout = function(TcpSocket, error)",
+        "",
+        "    --handle the Timeout",
+        "    print(\"socket closed due to timeout\\r\")",
+        "end",
+        "",
+        "sock:Connect(remoteControlIp, remoteControlPort)"
+      ],
+      "description": "TCP Framework"
+
+  },
+ 
+
+  "TcpSocket.New()": {
+      "prefix": "TcpSocket.New()",
+      "body": [
+        "MyTcp$1 = TcpSocket.New()"
+      ],
+      "description": "TcpSocket.New()"
   },
 
-  "Device.LocalUnit.ControlIP": {
-    "prefix": "Device.LocalUnit.ControlIP",
+  "TcpSocket.IsConnected": {
+      "prefix": "TcpSocket.IsConnected",
+      "body": [
+        "TcpSocketName.IsConnected"
+      ],
+      "description": "TcpSocket.IsConnected"
+  },
+
+  "TcpSocket.Connect": {
+      "prefix": "TcpSocket.Connect",
+      "body": [
+        "TcpSocketName:Connect(ip$1, port)"
+      ],
+      "description": "TcpSocket.Connect"
+  },
+
+  "TcpSocket.Disconnect": {
+      "prefix": "TcpSocket.Disconnect",
+      "body": [
+        "TcpSocketName$1:Disconnect()"
+      ],
+      "description": "TcpSocket.Disconnect"
+  },
+
+  "TcpSocket.Write": {
+      "prefix": "TcpSocket.Write",
+      "body": [
+        "TcpSocketName:Write(data$1)"
+      ],
+      "description": "TcpSocket.Write"
+  },
+
+  "TcpSocket.Read": {
+      "prefix": "TcpSocket.Read",
+      "body": [
+        "TcpSocketName:Read(length$1)"
+      ],
+      "description": "TcpSocket.Read"
+  },
+
+  "TcpSocket.ReadLine": {
+      "prefix": "TcpSocket.ReadLine",
+      "body": [
+        "TcpSocketName:ReadLine(EOL$1, [delimiter])"
+      ],
+      "description": "TcpSocket.ReadLine"
+  },
+
+  "TcpSocket.Search": {
+      "prefix": "TcpSocket.Search",
+      "body": [
+        "TcpSocketName:Search(pattern$1, [start])"
+      ],
+      "description": "TcpSocket.Search"
+  },
+
+  "UdpSocket.New": {
+      "prefix": "UdpSocket.New",
+      "body": [
+        "MyUdp$1 = UdpSocket.New()"
+      ],
+      "description": "UdpSocket.New"
+  },
+
+  "UdpSocket.Open": {
+      "prefix": "UdpSocket.Open",
+      "body": [
+        "UdpSocketName:Open(ip$1, port)"
+      ],
+      "description": "UdpSocket.Open"
+  },
+
+  "UdpSocket.Close": {
+      "prefix": "UdpSocket.Close",
+      "body": [
+        "UdpSocketName$1:Close()"
+      ],
+      "description": "UdpSocket.Close"
+  },
+
+  "UdpSocket.Send": {
+      "prefix": "UdpSocket.Send",
+      "body": [
+        "UdpSocketName:Send(ip$1, port, data)"
+      ],
+      "description": "UdpSocket.Send"
+  },
+
+  "UdpSocket.GetSockName": {
+      "prefix": "UdpSocket.GetSockName",
+      "body": [
+        "UdpSocketName$1:GetSockName()"
+      ],
+      "description": "UdpSocket.GetSockName"
+  },
+
+  "json.encode": {
+      "prefix": "json.encode",
+      "body": [
+        "json.encode(object$1)"
+      ],
+      "description": "json.encode"
+  },
+
+  "json.decode": {
+      "prefix": "json.decode",
+      "body": [
+        "json.decode(jsonString$1, startPos)"
+      ],
+      "description": "json.decode"
+  },
+
+  "json.null": {
+      "prefix": "json.null",
+      "body": [
+        "json.null()"
+      ],
+      "description": "json.null"
+  },
+
+  "NamedControl.GetText": {
+      "prefix": "NamedControl.GetText",
+      "body": [
+        "NamedControl.GetText(\"name$1\")"
+      ],
+      "description": "NamedControl.GetText"
+  },
+
+  "NamedControl.SetText": {
+      "prefix": "NamedControl.SetText",
+      "body": [
+        "NamedControl.SetText(\"name$1\", value)"
+      ],
+      "description": "NamedControl.SetText"
+  },
+
+  "NamedControl.GetValue": {
+      "prefix": "NamedControl.GetValue",
+      "body": [
+        "NamedControl.GetValue(\"name$1\")"
+      ],
+      "description": "NamedControl.GetValue"
+  },
+
+  "NamedControl.SetValue": {
+      "prefix": "NamedControl.SetValue",
+      "body": [
+        "NamedControl.SetValue(\"name$1\", value)"
+      ],
+      "description": "NamedControl.SetValue"
+  },
+
+  "NamedControl.GetPosition": {
+      "prefix": "NamedControl.GetPosition",
+      "body": [
+        "NamedControl.GetPosition(\"name$1\")"
+      ],
+      "description": "NamedControl.GetPosition"
+  },
+
+  "NamedControl.SetPosition": {
+      "prefix": "NamedControl.SetPosition",
+      "body": [
+        "NamedControl.SetPosition(\"name$1\", position)"
+      ],
+      "description": "NamedControl.SetPosition"
+  },
+
+  "Controls.Inputs.Value": {
+      "prefix": "Controls.Inputs.Value",
+      "body": [
+        "Controls.Inputs[input$1].Value"
+      ],
+      "description": "Controls.Inputs.Value"
+  },
+
+  "Controls.Inputs.EventHandler": {
+      "prefix": "Controls.Inputs.EventHandler",
+      "body": [
+        "Controls.Inputs[input$1].EventHandler"
+      ],
+      "description": "Controls.Inputs.EventHandler"
+  },
+
+  "Controls.Outputs.Value": {
+      "prefix": "Controls.Outputs.Value",
+      "body": [
+        "Controls.Outputs[output$1].Value"
+      ],
+      "description": "Controls.Outputs.Value"
+  },
+
+  "Device.Offline": {
+    "prefix": "Device.Offline",
     "body": [
-      "Device.LocalUnit.ControlIP"
+      "Device.Offline"
     ],
-    "description": "Device.LocalUnit.ControlIP"
+    "description": "Device.Offline"
+},
+
+"Device.LocalUnit.ControlIP": {
+  "prefix": "Device.LocalUnit.ControlIP",
+  "body": [
+    "Device.LocalUnit.ControlIP"
+  ],
+  "description": "Device.LocalUnit.ControlIP"
 },
 
 "Device.LocalUnit.AudioIP": {
-  "prefix": "Device.LocalUnit.AudioIP",
-  "body": [
-    "Device.LocalUnit.AudioIP"
-  ],
-  "description": "Device.LocalUnit.AudioIP"
+"prefix": "Device.LocalUnit.AudioIP",
+"body": [
+  "Device.LocalUnit.AudioIP"
+],
+"description": "Device.LocalUnit.AudioIP"
 },
 
 "Device.LocalUnit.Name": {
-  "prefix": "Device.LocalUnit.Name",
-  "body": [
-    "Device.LocalUnit.Name"
-  ],
-  "description": "Device.LocalUnit.Name"
+"prefix": "Device.LocalUnit.Name",
+"body": [
+  "Device.LocalUnit.Name"
+],
+"description": "Device.LocalUnit.Name"
 },
 
 "Device.LocalUnit.Type": {
-  "prefix": "Device.LocalUnit.Type",
-  "body": [
-    "Device.LocalUnit.Type"
-  ],
-  "description": "Device.LocalUnit.Type"
+"prefix": "Device.LocalUnit.Type",
+"body": [
+  "Device.LocalUnit.Type"
+],
+"description": "Device.LocalUnit.Type"
 },
 
 "Device.LocalUnit.TypeName": {
-  "prefix": "Device.LocalUnit.TypeName",
-  "body": [
-    "Device.LocalUnit.TypeName"
-  ],
-  "description": "Device.LocalUnit.TypeName"
+"prefix": "Device.LocalUnit.TypeName",
+"body": [
+  "Device.LocalUnit.TypeName"
+],
+"description": "Device.LocalUnit.TypeName"
 },
 
 "Device.RemoteUnit.IP": {
-  "prefix": "Device.RemoteUnit.IP",
-  "body": [
-    "Device.RemoteUnit.IP"
-  ],
-  "description": "Device.RemoteUnit.IP"
+"prefix": "Device.RemoteUnit.IP",
+"body": [
+  "Device.RemoteUnit.IP"
+],
+"description": "Device.RemoteUnit.IP"
 },
 
 "Device.RemoteUnit.Name": {
-  "prefix": "Device.RemoteUnit.Name",
-  "body": [
-    "Device.RemoteUnit.Name"
-  ],
-  "description": "Device.RemoteUnit.Name"
+"prefix": "Device.RemoteUnit.Name",
+"body": [
+  "Device.RemoteUnit.Name"
+],
+"description": "Device.RemoteUnit.Name"
 },
 
 "Device.RemoteUnit.Type": {
-  "prefix": "Device.RemoteUnit.Type",
-  "body": [
-    "Device.RemoteUnit.Type"
-  ],
-  "description": "Device.RemoteUnit.Type"
+"prefix": "Device.RemoteUnit.Type",
+"body": [
+  "Device.RemoteUnit.Type"
+],
+"description": "Device.RemoteUnit.Type"
 },
 
 "Device.RemoteUnit.TypeName": {
-  "prefix": "Device.RemoteUnit.TypeName",
-  "body": [
-    "Device.RemoteUnit.TypeName"
-  ],
-  "description": "Device.RemoteUnit.TypeName"
+"prefix": "Device.RemoteUnit.TypeName",
+"body": [
+  "Device.RemoteUnit.TypeName"
+],
+"description": "Device.RemoteUnit.TypeName"
 },
 
 "Device.RemoteUnit.DanteIP": {
-  "prefix": "Device.RemoteUnit.DanteIP",
-  "body": [
-    "Device.RemoteUnit.DanteIP"
-  ],
-  "description": "Device.RemoteUnit.DanteIP"
+"prefix": "Device.RemoteUnit.DanteIP",
+"body": [
+  "Device.RemoteUnit.DanteIP"
+],
+"description": "Device.RemoteUnit.DanteIP"
 },
 
 "Device.RemoteUnit.DanteMAC": {
-  "prefix": "Device.RemoteUnit.DanteMAC",
-  "body": [
-    "Device.RemoteUnit.DanteMAC"
-  ],
-  "description": "Device.RemoteUnit.DanteMAC"
+"prefix": "Device.RemoteUnit.DanteMAC",
+"body": [
+  "Device.RemoteUnit.DanteMAC"
+],
+"description": "Device.RemoteUnit.DanteMAC"
 },
 
 "Device.RemoteUnit.DanteName": {
-  "prefix": "Device.RemoteUnit.DanteName",
-  "body": [
-    "Device.RemoteUnit.DanteName"
-  ],
-  "description": "Device.RemoteUnit.DanteName"
+"prefix": "Device.RemoteUnit.DanteName",
+"body": [
+  "Device.RemoteUnit.DanteName"
+],
+"description": "Device.RemoteUnit.DanteName"
 },
 
 "Device.RemoteUnit.DanteModel": {
-  "prefix": "Device.RemoteUnit.DanteModel",
-  "body": [
-    "Device.RemoteUnit.DanteModel"
-  ],
-  "description": "Device.RemoteUnit.DanteModel"
+"prefix": "Device.RemoteUnit.DanteModel",
+"body": [
+  "Device.RemoteUnit.DanteModel"
+],
+"description": "Device.RemoteUnit.DanteModel"
 },
 
 "Device.RemoteUnit.DanteMfg": {
-  "prefix": "Device.RemoteUnit.DanteMfg",
-  "body": [
-    "Device.RemoteUnit.DanteMfg"
-  ],
-  "description": "Device.RemoteUnit.DanteMfg"
+"prefix": "Device.RemoteUnit.DanteMfg",
+"body": [
+  "Device.RemoteUnit.DanteMfg"
+],
+"description": "Device.RemoteUnit.DanteMfg"
 },
 
 "HttpClient.Download": {
-  "prefix": "HttpClient.Download",
-  "body": [
-    "HttpClient.Download {",
-    "    Url = \"string$1\",",
-    "    Headers = {table},",
-    "    User = \"string\",",
-    "    Password = \"string\",",
-    "    Timeout = \"number\",",
-    "    EventHandler = \"function\"}"
-  ],
-  "description": "HttpClient.Download"
+"prefix": "HttpClient.Download",
+"body": [
+  "HttpClient.Download {",
+  "    Url = \"string$1\",",
+  "    Headers = {table},",
+  "    User = \"string\",",
+  "    Password = \"string\",",
+  "    Timeout = \"number\",",
+  "    EventHandler = \"function\"}"
+],
+"description": "HttpClient.Download"
 
 },
 "HttpClient.Upload": {
-  "prefix": "HttpClient.Upload",
-  "body": [
-    "HttpClient.Upload {",
-    "        Url = \"string$1\",",
-    "        Headers = {\"table\"},",
-    "        User = \"string\",",
-    "        Password = \"string\",",
-    "        Data = \"string\",",
-    "        Method = \"string\",",
-    "        Timeout = \"number\",",
-    "        EventHandler = \"function\"}"
-  ],
-  "description": "HttpClient.Upload"
+"prefix": "HttpClient.Upload",
+"body": [
+  "HttpClient.Upload {",
+  "        Url = \"string$1\",",
+  "        Headers = {\"table\"},",
+  "        User = \"string\",",
+  "        Password = \"string\",",
+  "        Data = \"string\",",
+  "        Method = \"string\",",
+  "        Timeout = \"number\",",
+  "        EventHandler = \"function\"}"
+],
+"description": "HttpClient.Upload"
 },
 
 "HttpClient.CreateUrl": {
-  "prefix": "HttpClient.CreateUrl",
-  "body": [
-    "HttpClient.CreateUrl({",
-    "        Host = \"string$1\",",
-    "        Port = \"number\",",
-    "        Path = \"string\",",
-    "        Query = {\"table\"},",
-    "        Enocde = \"bool\"})"
-  ],
-  "description": "HttpClient.CreateUrl"
+"prefix": "HttpClient.CreateUrl",
+"body": [
+  "HttpClient.CreateUrl({",
+  "        Host = \"string$1\",",
+  "        Port = \"number\",",
+  "        Path = \"string\",",
+  "        Query = {\"table\"},",
+  "        Encode = \"bool\"})"
+],
+"description": "HttpClient.CreateUrl"
 },
 
 "HttpClient.EncodeParams": {
-  "prefix": "HttpClient.EncodeParams",
-  "body": [
-    "HttpClient.EncodeParams({",
-    "        key = \"value$1\", [\"valid key\"] = \"valid value\"})"
-  ],
-  "description": "HttpClient.EncodeParams"
+"prefix": "HttpClient.EncodeParams",
+"body": [
+  "HttpClient.EncodeParams({",
+  "        key = \"value$1\", [\"valid key\"] = \"valid value\"})"
+],
+"description": "HttpClient.EncodeParams"
 },
 
 "HttpClient.EncodeString": {
-  "prefix": "HttpClient.EncodeString",
-  "body": [
-    "HttpClient.EncodeString(\"string$1\", \"bool\")"
-  ],
-  "description": "HttpClient.EncodeString"
+"prefix": "HttpClient.EncodeString",
+"body": [
+  "HttpClient.EncodeString(\"string$1\", \"bool\")"
+],
+"description": "HttpClient.EncodeString"
 },
 
 "HttpClient.DecodeString": {
-  "prefix": "HttpClient.DecodeString",
-  "body": [
-    "HttpClient.DecodeString(\"string$1\")"
-  ],
-  "description": "HttpClient.DecodeString"
+"prefix": "HttpClient.DecodeString",
+"body": [
+  "HttpClient.DecodeString(\"string$1\")"
+],
+"description": "HttpClient.DecodeString"
 },
 
 "HTTP": {
-  "prefix": "HTTP Framework",
+"prefix": "HTTP Framework",
+"body": [
+  "function Response(Table, ReturnCode, Data, Error, Headers)",
+  "    $1",
+  "    if debug then ",
+  "        print(Data)",
+  "        print(Table)",
+  "        print(ReturnCode)",
+  "        print(Error)",
+  "        print(Headers)",
+  "    end",
+  "end",
+  "    ",
+  "function Http_Request()",
+  "    ",
+  "    Url = (HttpClient.CreateUrl({",
+  "           Host = \"\",",
+  "           Path = \"\"}))",
+  "     ",
+  "    HttpClient.Upload({",
+  "        Url = Url,",
+  "        Headers =  {\"\"},",
+  "        Data = \"\",",
+  "        Method = \"POST\",",
+  "        EventHandler = Response})",
+  "",
+  "    HttpClient.Download {",
+  "        Url = Url,",
+  "        EventHandler = Response}",
+  "end"
+],
+"description": "HTTP Framework"
+},
+
+"SSH": {
+  "prefix": "SSH Framework",
   "body": [
-    "function Response(Table, ReturnCode, Data, Error, Headers)",
-    "    $1",
-    "    if debug then ",
-    "        print(Data)",
-    "        print(Table)",
-    "        print(ReturnCode)",
-    "        print(Error)",
-    "        print(Headers)",
-    "    end",
-    "end",
-    "    ",
-    "function Http_Request()",
-    "    ",
-    "    Url = (HttpClient.CreateUrl({",
-    "           Host = \"\",",
-    "           Path = \"\"}))",
-    "     ",
-    "    HttpClient.Upload({",
-    "        Url = Url,",
-    "        Headers =  {\"\"},",
-    "        Data = \"\",",
-    "        Method = \"POST\",",
-    "        EventHandler = Response})",
+    "SSH = Ssh.New()",
+    "SSH.ReadTimeout = 15",
+    "SSH.WriteTimeout = 15",
+    "SSH.ReconnectTimeout = 10",
     "",
-    "    HttpClient.Download {",
-    "        Url = Url,",
-    "        EventHandler = Response}",
-    "end"
+    "function ParseResponse() -- function that reads the SSH TCP socket",
+    "",
+    "    rx = SSH:Read(SSH.BufferLength) -- assign the contents of the buffer to a variable",
+    "    print(rx)",
+    "end",
+    "",
+    "--#region SSH Callback",
+    "SSH.Connected = function() -- function called when the TCP socket is connected",
+    "    print(\"Socket connected\")",
+    "end",
+    "",
+    "SSH.Reconnect = function() -- function called when the TCP socket is reconnected",
+    "    print(\"Socket reconnecting...\")",
+    "end",
+    "",
+    "SSH.Closed = function() -- function called when the TCP socket is closed",
+    "    print(\"Socket closed\")",
+    "end",
+    "",
+    "SSH.Error = function() -- function called when the TCP socket has an error",
+    "    print(\"Socket error\")",
+    "end",
+    "",
+    "SSH.Timeout = function() -- function called when the TCP socket times out",
+    "    print(\"Socket timeout\")",
+    "end",
+    "",
+    "SSH.LoginFailed = function() -- function called when SSH login fails",
+    "    print(\"SSH login failed\")",
+    "end",
+    "",
+    "SSH.Data = ParseResponse -- ParseResponse is called when the SSH object has data",
+    "",
+    "SSH:Write(\" \" .. \"\\r\\n\")",
+    ""
   ],
-  "description": "HTTP Framework"
-  },
+  "description": "SSH"
+},
+
+"Ssh.New()": {
+  "prefix": "Ssh.New()",
+  "body": [
+    "Ssh.New()",
+  ],
+  "description": "Ssh.New()"
+},
+
+"SshName.ID": {
+  "prefix": "SshName.ID",
+  "body": [
+    "SshName.ID",
+  ],
+  "description": "SshName.ID"
+},
+
+"SshName.EventHandler(Ssh, event, error)": {
+  "prefix": "SshName.EventHandler(Ssh, event, error)",
+  "body": [
+    "SshName.EventHandler(Ssh, event, error)",
+  ],
+  "description": "SshName.EventHandler(Ssh, event, error)"
+},
+
+"SshName.ReconnectTimeout": {
+  "prefix": "SshName.ReconnectTimeout",
+  "body": [
+    "SshName.ReconnectTimeout",
+  ],
+  "description": "SshName.ReconnectTimeout"
+},
+
+"SshName.IsConnected": {
+  "prefix": "SshName.IsConnected",
+  "body": [
+    "SshName.IsConnected",
+  ],
+  "description": "SshName.IsConnected"
+},
+
+"SshName.IsInteractive": {
+  "prefix": "SshName.IsInteractive",
+  "body": [
+    "SshName.IsInteractive",
+  ],
+  "description": "SshName.IsInteractive"
+},
+
+"SshName.BufferLength": {
+  "prefix": "SshName.BufferLength",
+  "body": [
+    "SshName.BufferLength",
+  ],
+  "description": "SshName.BufferLength"
+},
+
+"SshName.PublicKey": {
+  "prefix": "SshName.PublicKey",
+  "body": [
+    "SshName.PublicKey",
+  ],
+  "description": "SshName.PublicKey"
+},
+
+"SshName.PrivateKey": {
+  "prefix": "SshName.PrivateKey",
+  "body": [
+    "SshName.PrivateKey",
+  ],
+  "description": "SshName.PrivateKey"
+},
+
+"SshName.PrivateKeyPassword": {
+  "prefix": "SshName.PrivateKeyPassword",
+  "body": [
+    "SshName.PrivateKeyPassword",
+  ],
+  "description": "SshName.PrivateKeyPassword"
+},
+
+"SshName:Connect(ip, port, username, password)": {
+  "prefix": "SshName:Connect(ip, port, username, password)",
+  "body": [
+    "SshName:Connect(ip, port, username, password)",
+  ],
+  "description": "SshName:Connect(ip, port, username, password)"
+},
+
+"SshName:Disconnect()": {
+  "prefix": "SshName:Disconnect()",
+  "body": [
+    "SshName:Disconnect()",
+  ],
+  "description": "SshName:Disconnect()"
+},
+
+"SshName:Write(data)": {
+  "prefix": "SshName:Write(data)",
+  "body": [
+    "SshName:Write(data)",
+  ],
+  "description": "SshName:Write(data)"
+},
+
+"SshName:Read(length)": {
+  "prefix": "SshName:Read(length)",
+  "body": [
+    "SshName:Read(length)",
+  ],
+  "description": "SshName:Read(length)"
+},
+
+"SshName:ReadLine(EOL, [delimiter])": {
+  "prefix": "SshName:ReadLine(EOL, [delimiter])",
+  "body": [
+    "SshName:ReadLine(EOL, [delimiter])",
+  ],
+  "description": "SshName:ReadLine(EOL, [delimiter])"
+},
+
+"SshName:Search(pattern, [start])": {
+  "prefix": "SshName:Search(pattern, [start])",
+  "body": [
+    "SshName:Search(pattern, [start])",
+  ],
+  "description": "SshName:Search(pattern, [start])"
+},
+
+"SshName.LoginFailed(Ssh, error)": {
+  "prefix": "SshName.LoginFailed(Ssh, error)",
+  "body": [
+    "SshName.LoginFailed(Ssh, error)",
+  ],
+  "description": "SshName.LoginFailed(Ssh, error)"
+},
+
+"SshName.Connected(Ssh)": {
+  "prefix": "SshName.Connected(Ssh)",
+  "body": [
+    "SshName.Connected(Ssh)",
+  ],
+  "description": "SshName.Connected(Ssh)"
+},
+
+"SshName.Reconnect(Ssh)": {
+  "prefix": "SshName.Reconnect(Ssh)",
+  "body": [
+    "SshName.Reconnect(Ssh)",
+  ],
+  "description": "SshName.Reconnect(Ssh)"
+},
+
+"SshName.Data(Ssh, data)": {
+  "prefix": "SshName.Data(Ssh, data)",
+  "body": [
+    "SshName.Data(Ssh, data)",
+  ],
+  "description": "SshName.Data(Ssh, data)"
+},
+
+"SshName.Closed(Ssh)": {
+  "prefix": "SshName.Closed(Ssh)",
+  "body": [
+    "SshName.Closed(Ssh)",
+  ],
+  "description": "SshName.Closed(Ssh)"
+},
+
+"SshName.Error(Ssh, error)": {
+  "prefix": "SshName.Error(Ssh, error)",
+  "body": [
+    "SshName.Error(Ssh, error)",
+  ],
+  "description": "SshName.Error(Ssh, error)"
+},
+
+"SshName.Timeout(Ssh, error)": {
+  "prefix": "SshName.Timeout(Ssh, error)",
+  "body": [
+    "SshName.Timeout(Ssh, error)",
+  ],
+  "description": "SshName.Timeout(Ssh, error)"
+}
+
 }
